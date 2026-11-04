@@ -83,8 +83,8 @@ class FileSock:
         while True:
             c = self.read(1)
             s += c
-        if len(c) == 0 or chr(c[0]) == "\n":
-            return s
+            if len(c) == 0 or chr(c[0]) == "\n":
+                return s
 
 
 class ClientExit(Exception):
@@ -141,6 +141,8 @@ class Server:
             self.log("unknown method")
 
         try:
+            if st is not None:
+                raise st
             ret = f(*args)
         except Exception as e:
             # due to a bug (in mod_python?), ServerException cannot be
